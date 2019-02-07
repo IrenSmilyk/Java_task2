@@ -3,9 +3,12 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        FirstTask firstTask = new FirstTask();
+        /*FirstEighthTask firstTask = new FirstEighthTask();
         firstTask.showShortLongNumber();
-        SecondTask secondTask = new SecondTask();
-        secondTask.sortArray(firstTask.array);
+        firstTask.showAverageLength();*/
+        NinthTask ninthTask =new NinthTask();
+        ninthTask.sedArray();
+        ninthTask.showArray();
+
     }
 }
