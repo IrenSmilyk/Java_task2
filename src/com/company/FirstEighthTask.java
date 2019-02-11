@@ -7,18 +7,21 @@ class FirstEighthTask {
     private String minStr = null;
     private String maxStr = null;
     private Scanner scan = new Scanner(System.in);
-    String input;
+    private int sum = 0;
 
-
-    /*-- Ввести n чисел с консоли.----------------------------------------------------------
-         1. Найти самое короткое и самое длинное число. Вывести найденные числа и их длину.*/
-//-----------Первый вариант------------------------------------------------------------
-    void showShortLongNumber() {
-        int minCol = 1000;
-        int maxCol = 0;
+    void setArray() {
+        String input;
         System.out.print("Введите числа: ");
         input = scan.nextLine();
         array = input.split("\\s+");
+    }
+
+    /*-- Ввести n чисел с консоли.----------------------------------------------------------------------------------------
+             1. Найти самое короткое и самое длинное число. Вывести найденные числа и их длину.*/
+//-----------Первый вариант-------------------------------------------------------------------------------------------
+    void showShortLongNumber() {
+        int minCol = 1000;
+        int maxCol = 0;
         for (String i : array) {
             if (i.length() < minCol) {
                 minCol = i.length();
@@ -38,7 +41,7 @@ class FirstEighthTask {
         }
     }
 
-//-----------Второй вариант-------------------------------------------------------
+//-----------Второй вариант-------------------------------------------------------------------------------------------
    /* void showShortLongNumber() {
         long number;
         int counter = 1;
@@ -69,7 +72,6 @@ class FirstEighthTask {
                 maxCol = counter;
                 maxNum = i;
             }
-
             counter = 1;
         }
         if (minCol == maxCol) {
@@ -81,9 +83,14 @@ class FirstEighthTask {
         }
     }*/
 
-    //---2. Упорядочить и вывести числа в порядке возрастания (убывания) значений их длины.--------
+    //---2. Упорядочить и вывести числа в порядке возрастания (убывания) значений их длины.------------------------------
     void sortNumbers() {
-        System.out.print("Числа в порядке возрастания значений их длины: ");
+        System.out.print("Длина введенных чисел: ");
+        for (String i : array) {
+            System.out.print(i.length() + "  ");
+            sum += i.length();
+        }
+        System.out.print("\nЧисла в порядке возрастания значений их длины: ");
         for (int i = 0; i < array.length - 1; i++) {
             for (int j = i + 1; j < array.length; j++) {
                 if (array[i].length() > array[j].length()) {
@@ -112,16 +119,10 @@ class FirstEighthTask {
         }
     }
 
-    //---3. Вывести на консоль те числа, длина которых меньше (больше) средней, а также длину.---
+    //---3. Вывести на консоль те числа, длина которых меньше (больше) средней, а также длину.----------------------------
     void showAverageLength() {
-        int sum = 0;
         int average;
         int counter = 0;
-        System.out.print("\nДлина введенных чисел: ");
-        for (String i : array) {
-            System.out.print(i.length() + "  ");
-            sum += i.length();
-        }
         average = sum / array.length;
         System.out.println("\nСредняя длина: " + average);
         System.out.println("Числа, длина которых меньше средней: ");
@@ -143,13 +144,134 @@ class FirstEighthTask {
 
     }
 
-    //  4. Найти число, в котором число различных цифр минимально. Если таких чисел несколько, найти первое из них.
-//5. Найти количество чисел, содержащих только четные цифры, а среди них количество чисел с равным числом четных и нечетных цифр.
-//6. Найти число, цифры в котором идут в строгом порядке возрастания. Если таких чисел несколько, найти первое из них.
-//7. Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
+    //--4. Найти число, в котором число различных цифр минимально. Если таких чисел несколько, найти первое из них.--------
+    void minDifferentNumbers() {
+        long[] arrayNumbers = new long[array.length];
+        int min = 10;
+        long c = 0;
+        for (int i = 0; i < array.length; i++) {
+            arrayNumbers[i] = Long.parseLong(array[i]);
+        }
+        System.out.println("Числа и количество различных чисел в них:");
+        for (long k : arrayNumbers) {
+            String a = String.valueOf(k);
+            char[] a1 = a.toCharArray();
+            int[] arrayNum = new int[a1.length];
+            for (int i = 0; i < a1.length; i++) {
+                arrayNum[i] = Character.getNumericValue(a1[i]);
+            }
+            for (int bar = arrayNum.length - 1; bar >= 0; bar--) {
+                for (int j = 0; j < bar; j++) {
+                    if (arrayNum[j] > arrayNum[j + 1]) {
+                        int tmp = arrayNum[j];
+                        arrayNum[j] = arrayNum[j + 1];
+                        arrayNum[j + 1] = tmp;
+                    }
+                }
+            }
+            int count = 1;
+
+            for (int i = 1; i < arrayNum.length; i++) {
+                if (arrayNum[i] != arrayNum[i - 1]) {
+                    count++;
+                }
+            }
+            System.out.print(k + " - " + count + ", ");
+            if (count < min) {
+                min = count;
+                c = k;
+            }
+        }
+        System.out.println("\nЧисло, в котором число различных цифр минимально: " + c);
+    }
+
+    //----5. Найти количество чисел, содержащих только четные цифры, а среди них количество чисел с равным числом четных и
+// ------------------------------нечетных цифр.-----------------------------------------------------------------------
+    void colEvenNumbers() {
+        long[] arrayNumbers = new long[array.length];
+        int count1 = 0;
+        int i;
+        int counter = 0;
+        for (i = 0; i < array.length; i++) {
+            arrayNumbers[i] = Long.parseLong(array[i]);
+        }
+        System.out.print("Числа, что Вы ввели: ");
+        for (long arrayNumber : arrayNumbers) {
+            System.out.print(arrayNumber + " ");
+        }
+        for (i = 0; i < arrayNumbers.length; i++) {
+            if (arrayNumbers[i] % 2 == 0) {
+                counter++;
+            }
+        }
+        System.out.print("\nКоличество четных чисел: " + counter);
+        for (i = 0; i < arrayNumbers.length; i++) {
+            int counterEven = 0;
+            int counterOdd = 0;
+            if (arrayNumbers[i] % 2 == 0) {
+                String a = String.valueOf(arrayNumbers[i]);
+                char[] a1 = a.toCharArray();
+                int[] arrayNum = new int[a1.length];
+                for (int j = 0; j < a1.length; j++) {
+                    arrayNum[j] = Character.getNumericValue(a1[j]);
+                }
+                for (int j : arrayNum) {
+                    if (j % 2 == 0) {
+                        counterEven++;
+                    } else counterOdd++;
+                }
+                if (counterEven == counterOdd) {
+                    count1++;
+                }
+            }
+        }
+        System.out.println("\nКоличество чисел с равным числом четных и нечетных цифр среди четных чисел: " + count1);
+    }
+
+    //6. Найти число, цифры в котором идут в строгом порядке возрастания. Если таких чисел несколько, найти первое из них.
+    void numbersInAscendingOrder() {
+        long[] arrayNumbers = new long[array.length];
+        int i;
+        int count = 0;
+        int flag = 0;
+        for (i = 0; i < array.length; i++) {
+            arrayNumbers[i] = Long.parseLong(array[i]);
+        }
+        System.out.print("Число, цифры в котором идут в строгом порядке возрастания: ");
+        exit:
+        {
+            for (long i1 : arrayNumbers) {
+                String a = String.valueOf(i1);
+                char[] a1 = a.toCharArray();
+                int[] arrayNum = new int[a1.length];
+                for (int j = 0; j < a1.length; j++) {
+                    arrayNum[j] = Character.getNumericValue(a1[j]);
+                }
+                for (int k = 0; k < arrayNum.length - 1; k++) {
+                    for (int l = k + 1; l < arrayNum.length; l++) {
+                        if (arrayNum[k] > arrayNum[l]) {
+                            int tmp = arrayNum[l];
+                            arrayNum[l] = arrayNum[k];
+                            arrayNum[k] = tmp;
+                            count = 1;
+                        }
+                    }
+                }
+                if (count == 0) {
+                    System.out.println(i1 + " ");
+                    flag = 1;
+                    break exit;
+                }
+                count = 0;
+            }
+        }
+        if (flag == 0) {
+            System.out.println("Таких чисел нет!");
+        }
+    }
+
+    //7. Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
     void differentNumbers() {
-
-
 
 
     }

@@ -4,11 +4,15 @@ public class Main {
 
     public static void main(String[] args) {
         FirstEighthTask firstTask = new FirstEighthTask();
-        firstTask.showShortLongNumber();
+        firstTask.setArray();
+       /* firstTask.showShortLongNumber();
         firstTask.sortNumbers();
         firstTask.showAverageLength();
-        firstTask.showArray();
-        firstTask.differentNumbers();
+        firstTask.minDifferentNumbers();
+        firstTask.colEvenNumbers();*/
+        firstTask.numbersInAscendingOrder();
+       /* firstTask.showArray();
+        firstTask.differentNumbers();*/
       /*  NinthTask ninthTask =new NinthTask();
         ninthTask.sedArray();
         ninthTask.showArray();*/
