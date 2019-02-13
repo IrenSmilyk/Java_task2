@@ -18,8 +18,11 @@ public class Main {
         System.out.println("Матрица со случайными числами: ");
         ninthTask.showArray1();
         ninthTask.sortRowColumn();
-        ninthTask.minusAverage();
-        ninthTask.moveZero();
+       // ninthTask.sumElements();
+        ninthTask.rotateMatrix();
+       /* ninthTask.minusAverage();
+       // ninthTask.removeRow();
+        ninthTask.moveZero();*/
 
     }
 }
