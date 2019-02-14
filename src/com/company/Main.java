@@ -18,14 +18,15 @@ public class Main {
         System.out.println("Матрица со случайными числами: ");
         ninthTask.showArray1();
         ninthTask.sortRowColumn();
-       // ninthTask.sumElements();
+        ninthTask.moveElement();
+        /*ninthTask.sumElements();
         System.out.println("Матрица повернутая на 90 градусов: ");
         ninthTask.rotateMatrix();
         ninthTask.showArray1();
         ninthTask.rotate2Matrix();
         ninthTask.minusAverage();
         ninthTask.moveZero();
-        //ninthTask.removeRow();
+        ninthTask.removeRow();*/
 
 
     }

@@ -66,14 +66,62 @@ class NinthTask {
     }
 
     //---9.2. Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).-----------------------
-    /*void moveElement() {
+    void moveElement() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу влево: ");
+        int step = sc.nextInt();
+        if (step > array.length || step < 1) {
+            System.out.println("Сдвиг невозможен!");
+            //return;
+        }
+        int buff, i, j;
+        for (int r = 0; r < step; r++) {
+            for (i = 0; i < array.length; i++) {
+                buff = array[i][0];
+                for (j = 0; j < array.length - 1; j++) {
+                    array[i][j] = array[i][j + 1];
+                }
+                array[i][j] = buff;
+            }
+        }
+        showArray1();
+    }
 
-    }*/
-//---9.3. Найти и вывести наибольшее число возрастающих (убывающих) элементов матрицы, идущих подряд.------------------
+    //---9.3. Найти и вывести наибольшее число возрастающих (убывающих) элементов матрицы, идущих подряд.------------------
 //---9.4. Найти сумму элементов матрицы, расположенных между первым и вторым положительными элементами каждой строки.--
-   /* void sumElements() {
-
-    }*/
+    void sumElements() {
+        int[] arrayNew = new int[array.length * array[0].length];
+        for (int row = 0; row < length; row++) {
+            for (int col = 0; col < array[row].length; col++) {
+                arrayNew[row * array[0].length + col] = array[row][col];
+            }
+        }
+        System.out.println();
+        int sum = 0;
+        for (int row = 0; row < length; row++) {
+            int sum1 = 0;
+            int first = -1, second = -1;
+            for (int col = 0; col < length; col++) {
+                if (arrayNew[row * length + col] >= 0) {
+                    if (first == -1) {
+                        first = row * length + col;
+                    } else if (second == -1) {
+                        second = row * length + col;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            if (first != -1 && second != -1 && second > first) {
+                for (int m = first + 1; m < second; m++) {
+                    sum1 += arrayNew[m];
+                }
+            }
+            sum += sum1;
+            System.out.println("Сумма элементов матрицы, расположенных между первым и вторым положительными элементами " + row + " строки: " + sum);
+            sum = 0;
+        }
+    }
 
     //---9.5. Повернуть матрицу на 90 (180, 270) градусов против часовой стрелки.----------------------------------------
     void rotateMatrix() {
@@ -121,10 +169,12 @@ class NinthTask {
         System.out.println("\nМатрица, в кторой из элементов каждой строки вычли ее среднее арифметическое: ");
         showArray1();
     }
-    //---9.7. Уплотнить матрицу, удаляя из нее строки и столбцы, заполненные нулями.----------------------------------------
-   /* void removeRow() {
 
-    }*/
+    //---9.7. Уплотнить матрицу, удаляя из нее строки и столбцы, заполненные нулями.----------------------------------------
+    void removeRow() {
+
+    }
+
     //---9.8. Преобразовать строки матрицы таким образом, чтобы элементы, равные нулю, располагались после всех остальных.--
     void moveZero() {
         for (int row = 0; row < array.length; row++) {
