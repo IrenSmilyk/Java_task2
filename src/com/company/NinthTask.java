@@ -10,7 +10,7 @@ class NinthTask {
     private int length;
 
     /*--9.Ввести с консоли n-размерность матрицы a [n] [n]. Задать значения элементов матрицы в интервале значений---------
-    ---от -n до n с помощью датчика случайных чисел.---------------------------------------------------------------------*/
+   ---от -n до n с помощью датчика случайных чисел.---------------------------------------------------------------------*/
     boolean sedArray() {
         boolean k;
         System.out.print("Введите размерность матрицы: ");
@@ -73,30 +73,31 @@ class NinthTask {
         showArray1();
     }
 
-    //---9.2. Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).--------------------
-    //----Первый вариан--в матрице сдвигаются все элементы влево-------------------------------------------------------
-    /*void moveElementLeft1() {
+//---9.2. Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).--------------------
+//----Первый вариан--в матрице сдвигаются все элементы влево-------------------------------------------------------
+void moveElementLeft1() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу влево: ");
         int step = sc.nextInt();
-        if (step > length * length || step < 1) {
+        if (step < 1) {
             System.out.println("Сдвиг невозможен!");
-        } else if (step == length * length) {
+        } else if (step == length*length) {
             System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
         } else {
+        int m = step;
+            while (step > length*length - 1) {
+                step = step - length*length;
+            }
             int[] arrayNew = new int[length * length];
             for (int row = 0; row < length; row++) {
                 for (int col = 0; col < array[row].length; col++) {
                     arrayNew[row * array[0].length + col] = array[row][col];
                 }
             }
-            for (int i = 0; i < length * length; i++) {
-                System.out.print(arrayNew[i] + " ");
-            }
             for (int i = 0; i < step; i++) {
                 leftRotate(arrayNew, length * length);
             }
-            System.out.println("Матрица сдвинутая на " + step + " элементов(-та) влево:");
+            System.out.println("Матрица сдвинута на " + m + " элементов(-та) влево:");
             for (int row = 0; row < length; row++) {
                 for (int col = 0; col < length; col++) {
                     System.out.print(arrayNew[row * length + col] + " ");
@@ -114,20 +115,25 @@ class NinthTask {
             matrix[i] = matrix[i + 1];
         }
         matrix[i] = temp;
-    }*/
+    }
 
     //--Второй вариан--в матрице сдвигаются влево элементы каждой строки------------------------------------------------
+
     void moveElementLeft2() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу влево: ");
         int step = sc.nextInt();
-        if (step > length || step < 1) {
+        if (step < 1) {
             System.out.println("Сдвиг невозможен!");
         } else if (step == length) {
             System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
         } else {
+            int m = step;
+            while (step > length - 1) {
+                step = step - length;
+            }
             //-------------Первый вариант---------------------------------------------------------
-            System.out.println("Матрица сдвинутая на " + step + " элементов(-та) влево:");
+            System.out.println("Матрица сдвинута на " + m + " элементов(-та) влево:");
             /*for (int j = 0; j < length; j++) {
                 for (int row = step; row < length; row++)
                     System.out.print(array[j][row] + " ");
@@ -155,12 +161,16 @@ class NinthTask {
         Scanner sc = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу вправо: ");
         int step = sc.nextInt();
-        if (step > length || step < 1) {
+        if (step < 1) {
             System.out.println("Сдвиг невозможен!");
         } else if (step == length) {
             System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
         } else {
-            System.out.println("Матрица сдвинутая на " + step + " элементов(-та) вправо:");
+            int m = step;
+            while (step > length - 1) {
+                step = step - length;
+            }
+            System.out.println("Матрица сдвинута на " + m + " элементов(-та) вправо:");
             int j;
             for (int row = 0; row < length; row++) {
                 for (int k = 0; k < step; k++) {
@@ -179,12 +189,16 @@ class NinthTask {
         Scanner sc = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу вниз: ");
         int step = sc.nextInt();
-        if (step > length || step < 1) {
+        if (step < 1) {
             System.out.println("Сдвиг невозможен!");
         } else if (step == length) {
             System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
         } else {
-            System.out.println("Матрица сдвинутая на " + step + " строк(ки)  вниз:");
+            int m = step;
+            while (step > length - 1) {
+                step = step - length;
+            }
+            System.out.println("Матрица сдвинута на " + m + " строк(ки) вниз:");
             int temp, i, j;
             for (int row = 0; row < step; row++) {
                 for (i = 0; i < length; i++) {
@@ -203,15 +217,16 @@ class NinthTask {
         Scanner sc = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу вверх: ");
         int step = sc.nextInt();
-        if (step > length || step < 1) {
-            // System.out.println("Сдвиг невозможен!");
+        if (step < 1) {
+            System.out.println("Сдвиг невозможен!");
+        } else if (step == length) {
+            System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
+        } else {
+            int m = step;
             while (step > length - 1) {
                 step = step - length;
             }
-        } else if (step == length) {
-            System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
-        } else  {
-            System.out.println("Матрица сдвинутая на " + step + " строк(ки) вверх:");
+            System.out.println("Матрица сдвинутая на " + m + " строк(ки) вверх:");
             int temp, i, j;
             for (int row = 0; row < step; row++) {
                 for (i = 0; i < length; i++) {
@@ -226,13 +241,61 @@ class NinthTask {
         }
     }
 
-    //---9.3. Найти и вывести наибольшее число возрастающих (убывающих) элементов матрицы, идущих подряд.------------------
-//---9.4. Найти сумму элементов матрицы, расположенных между первым и вторым положительными элементами каждой строки.--
+    //---9.3. Найти и вывести наибольшее число возрастающих (убывающих) элементов матрицы, идущих подряд.---------------
+    void maxCountElement() {
+        int[] arrayNew = new int[array.length * array.length];
+        int n = 0, countMax = 0, countMin = 0;
+        int max = 0, min = 0;
+        int index = 0, index1 = 0;
+        for (int[] row : array) {
+            for (int col : row) {
+                arrayNew[n++] = col;
+            }
+        }
+        for (n = 0; n < arrayNew.length - 1; n++) {
+            if (arrayNew[n] < arrayNew[n + 1]) {
+                countMax++;
+                if (countMax > max) {
+                    max = countMax;
+                    index = n + 1; //запоминаем индекс последнего возрастающего элемента
+                }
+            } else {
+                countMax = 0;
+            }
+            if (arrayNew[n] > arrayNew[n + 1]) {
+                countMin++;
+                if (countMin > min) {
+                    min = countMin;
+                    index1 = n + 1; //запоминаем индекс последнего убывающего элемента
+                }
+            } else {
+                countMin = 0;
+            }
+        }
+        System.out.print("Максимальная последовательность возрастающих чисел:");
+        int[] maxArray = new int[max + 1];
+        System.arraycopy(arrayNew, (index - max), maxArray, 0, (max + 1));
+        System.out.println(Arrays.toString(maxArray) + " " + (max + 1));
+        System.out.print("Максимальная последовательность убывающих чисел:");
+        int[] minArray = new int[min + 1];
+        System.arraycopy(arrayNew, (index1 - min), minArray, 0, (min + 1));
+        System.out.println(Arrays.toString(minArray) + " " + (min + 1));
+    }
+
+    //---9.4. Найти сумму элементов матрицы, расположенных между первым и вторым положительными элементами каждой строки.--
     void sumElements() {
-        int[] arrayNew = new int[array.length * array[0].length];
-        for (int row = 0; row < length; row++) {
+        int[] arrayNew = new int[array.length * array.length];
+        //-----Первый вариант------------------------------------------------------------------------------------------
+        /*for (int row = 0; row < length; row++) {
             for (int col = 0; col < array[row].length; col++) {
                 arrayNew[row * array[0].length + col] = array[row][col];
+            }
+        }*/
+        //----Второй вариант-------------------------------------------------------------------------------------------
+        int n = 0;
+        for (int[] row : array) {
+            for (int col : row) {
+                arrayNew[n++] = col;
             }
         }
         System.out.println();
