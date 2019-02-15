@@ -11,17 +11,25 @@ class NinthTask {
 
     /*--9.Ввести с консоли n-размерность матрицы a [n] [n]. Задать значения элементов матрицы в интервале значений---------
     ---от -n до n с помощью датчика случайных чисел.---------------------------------------------------------------------*/
-    void sedArray() {
+    boolean sedArray() {
+        boolean k;
         System.out.print("Введите размерность матрицы: ");
         Scanner input = new Scanner(System.in);
         length = input.nextInt();
         array = new int[length][length];
         Random ran = new Random();
-        for (int row = 0; row < array.length; row++) {
-            for (int col = 0; col < array.length; col++) {
-                array[row][col] = ran.nextInt(length + length) - length;
+        if (length <= 1) {
+            System.out.println("Невозможно создать матрицу такой длины!");
+            k = false;
+        } else {
+            for (int row = 0; row < array.length; row++) {
+                for (int col = 0; col < array.length; col++) {
+                    array[row][col] = ran.nextInt(length + length) - length;
+                }
             }
+            k = true;
         }
+        return k;
     }
 
     void showArray1() {
@@ -65,26 +73,157 @@ class NinthTask {
         showArray1();
     }
 
-    //---9.2. Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).-----------------------
-    void moveElement() {
+    //---9.2. Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).--------------------
+    //----Первый вариан--в матрице сдвигаются все элементы влево-------------------------------------------------------
+    /*void moveElementLeft1() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу влево: ");
         int step = sc.nextInt();
-        if (step > array.length || step < 1) {
+        if (step > length * length || step < 1) {
             System.out.println("Сдвиг невозможен!");
-            //return;
-        }
-        int buff, i, j;
-        for (int r = 0; r < step; r++) {
-            for (i = 0; i < array.length; i++) {
-                buff = array[i][0];
-                for (j = 0; j < array.length - 1; j++) {
-                    array[i][j] = array[i][j + 1];
+        } else if (step == length * length) {
+            System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
+        } else {
+            int[] arrayNew = new int[length * length];
+            for (int row = 0; row < length; row++) {
+                for (int col = 0; col < array[row].length; col++) {
+                    arrayNew[row * array[0].length + col] = array[row][col];
                 }
-                array[i][j] = buff;
+            }
+            for (int i = 0; i < length * length; i++) {
+                System.out.print(arrayNew[i] + " ");
+            }
+            for (int i = 0; i < step; i++) {
+                leftRotate(arrayNew, length * length);
+            }
+            System.out.println("Матрица сдвинутая на " + step + " элементов(-та) влево:");
+            for (int row = 0; row < length; row++) {
+                for (int col = 0; col < length; col++) {
+                    System.out.print(arrayNew[row * length + col] + " ");
+                }
+                System.out.println();
+
             }
         }
-        showArray1();
+    }
+
+    private void leftRotate(int[] matrix, int size) {
+        int i, temp;
+        temp = matrix[0];
+        for (i = 0; i < size - 1; i++) {
+            matrix[i] = matrix[i + 1];
+        }
+        matrix[i] = temp;
+    }*/
+
+    //--Второй вариан--в матрице сдвигаются влево элементы каждой строки------------------------------------------------
+    void moveElementLeft2() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу влево: ");
+        int step = sc.nextInt();
+        if (step > length || step < 1) {
+            System.out.println("Сдвиг невозможен!");
+        } else if (step == length) {
+            System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
+        } else {
+            //-------------Первый вариант---------------------------------------------------------
+            System.out.println("Матрица сдвинутая на " + step + " элементов(-та) влево:");
+            /*for (int j = 0; j < length; j++) {
+                for (int row = step; row < length; row++)
+                    System.out.print(array[j][row] + " ");
+
+                for (int row = 0; row < step; row++)
+                    System.out.print(array[j][row] + " ");
+                System.out.println();
+            }*/
+            //------------Второй вариант---------------------------------------------------------
+            int j;
+            for (int row = 0; row < length; row++) {
+                for (int k = 0; k < step; k++) {
+                    int temp = array[row][0];
+                    for (j = 0; j < length - 1; j++) {
+                        array[row][j] = array[row][j + 1];
+                    }
+                    array[row][length - 1] = temp;
+                }
+            }
+            showArray1();
+        }
+    }
+
+    void moveElementRight() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу вправо: ");
+        int step = sc.nextInt();
+        if (step > length || step < 1) {
+            System.out.println("Сдвиг невозможен!");
+        } else if (step == length) {
+            System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
+        } else {
+            System.out.println("Матрица сдвинутая на " + step + " элементов(-та) вправо:");
+            int j;
+            for (int row = 0; row < length; row++) {
+                for (int k = 0; k < step; k++) {
+                    int temp = array[row][length - 1];
+                    for (j = length - 1; j > 0; j--) {
+                        array[row][j] = array[row][j - 1];
+                    }
+                    array[row][0] = temp;
+                }
+            }
+            showArray1();
+        }
+    }
+
+    void moveElementDown() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу вниз: ");
+        int step = sc.nextInt();
+        if (step > length || step < 1) {
+            System.out.println("Сдвиг невозможен!");
+        } else if (step == length) {
+            System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
+        } else {
+            System.out.println("Матрица сдвинутая на " + step + " строк(ки)  вниз:");
+            int temp, i, j;
+            for (int row = 0; row < step; row++) {
+                for (i = 0; i < length; i++) {
+                    temp = array[length - 1][i];
+                    for (j = length - 1; j > 0; j--) {
+                        array[j][i] = array[j - 1][i];
+                    }
+                    array[j][i] = temp;
+                }
+            }
+            showArray1();
+        }
+    }
+
+    void moveElementUp() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу вверх: ");
+        int step = sc.nextInt();
+        if (step > length || step < 1) {
+            // System.out.println("Сдвиг невозможен!");
+            while (step > length - 1) {
+                step = step - length;
+            }
+        } else if (step == length) {
+            System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
+        } else  {
+            System.out.println("Матрица сдвинутая на " + step + " строк(ки) вверх:");
+            int temp, i, j;
+            for (int row = 0; row < step; row++) {
+                for (i = 0; i < length; i++) {
+                    temp = array[0][i];
+                    for (j = 0; j < length - 1; j++) {
+                        array[j][i] = array[j + 1][i];
+                    }
+                    array[j][i] = temp;
+                }
+            }
+            showArray1();
+        }
     }
 
     //---9.3. Найти и вывести наибольшее число возрастающих (убывающих) элементов матрицы, идущих подряд.------------------
