@@ -41,49 +41,7 @@ class FirstEighthTask {
         }
     }
 
-//-----------Второй вариант-------------------------------------------------------------------------------------------
-   /* void showShortLongNumber() {
-        long number;
-        int counter = 1;
-        int minCol = 10;
-        int maxCol = 0;
-        long maxNum = 0;
-        long minNum = 0;
-        System.out.print("Введите числа: ");
-        String s = new Scanner(System.in).nextLine();
-        String[] array = s.split("\\s+");
-        long[] arrayNum = new long[array.length];
-        for (int i = 0; i < array.length; i++) {
-            arrayNum[i] = Long.parseLong(array[i]);
-        }
-        System.out.print("Длина введенных чисел: ");
-        for (long i : arrayNum) {
-            number = i / 10;
-            while (number != 0) {
-                counter++;
-                number = number / 10;
-            }
-            System.out.print(counter + " ");
-            if (counter < minCol) {
-                minCol = counter;
-                minNum = i;
-            }
-            if (counter > maxCol) {
-                maxCol = counter;
-                maxNum = i;
-            }
-            counter = 1;
-        }
-        if (minCol == maxCol) {
-            System.out.printf("\nВсе числа одной длины и состоят из %d цифр(-ы).\n", minCol);
-
-        } else {
-            System.out.printf("\nМинимальное число: %d состоит из %d цифр(-ы).", minNum, minCol);
-            System.out.printf("\nМаксимальное число: %d состоит из %d цифр.", maxNum, maxCol);
-        }
-    }*/
-
-    //---2. Упорядочить и вывести числа в порядке возрастания (убывания) значений их длины.------------------------------
+//---2. Упорядочить и вывести числа в порядке возрастания (убывания) значений их длины.------------------------------
     void sortNumbers() {
         System.out.print("Длина введенных чисел: ");
         for (String i : array) {
@@ -127,11 +85,12 @@ class FirstEighthTask {
         int average;
         int counter = 0;
         average = sum / array.length;
-        System.out.println("\nСредняя длина: " + average);
-        System.out.println("Числа, длина которых меньше средней: ");
+        System.out.printf("\nСредняя длина: %d", average);
+        System.out.println("\nЧисла, длина которых меньше средней: ");
         for (String i : array) {
             if (i.length() < average) {
-                System.out.println(i + " - его длина: " + i.length());
+                System.out.printf("%s - его длина: %d", i, i.length());
+                System.out.println();
                 counter = 1;
             }
         }
@@ -141,7 +100,8 @@ class FirstEighthTask {
         System.out.println("Числа, длина которых, больше средней: ");
         for (String i : array) {
             if (i.length() > average) {
-                System.out.println(i + " - его длина: " + i.length());
+                System.out.printf("%s - его длина: %d", i, i.length());
+                System.out.println();
                 counter = 1;
             }
         }
@@ -154,18 +114,18 @@ class FirstEighthTask {
     void minDifferentNumbers() {
         long[] arrayNumbers = new long[array.length];
         int min = 10;
-        long c = 0;
+        long number = 0;
         for (int i = 0; i < array.length; i++) {
             arrayNumbers[i] = Long.parseLong(array[i]);
         }
         System.out.println("Числа и количество различных чисел в них:");
         for (long k : arrayNumbers) {
             String a = String.valueOf(k);
-            char[] a1 = a.toCharArray();
-            int[] arrayNum = new int[a1.length];
+            char[] charArray = a.toCharArray();
+            int[] arrayNum = new int[charArray.length];
 
-            for (int i = 0; i < a1.length; i++) {
-                arrayNum[i] = Character.getNumericValue(a1[i]);
+            for (int i = 0; i < charArray.length; i++) {
+                arrayNum[i] = Character.getNumericValue(charArray[i]);
             }
 
             for (int bar = arrayNum.length - 1; bar >= 0; bar--) {
@@ -185,16 +145,16 @@ class FirstEighthTask {
                 }
             }
 
-            System.out.print(k + " - " + count + ", ");
+            System.out.printf("%d - %d, ",k,count);
             if (count < min) {
                 min = count;
-                c = k;
+                number = k;
             }
         }
-        System.out.println("\nЧисло, в котором число различных цифр минимально: " + c);
+        System.out.printf("\nЧисло, в котором число различных цифр минимально: %d", number);
     }
 
-    //----5. Найти количество чисел, содержащих только четные цифры, а среди них количество чисел с равным числом четных и
+//----5. Найти количество чисел, содержащих только четные цифры, а среди них количество чисел с равным числом четных и
 // ------------------------------нечетных цифр.-----------------------------------------------------------------------
     void colEvenNumbers() {
         long[] arrayNumbers = new long[array.length];
@@ -206,7 +166,7 @@ class FirstEighthTask {
             arrayNumbers[i] = Long.parseLong(array[i]);
         }
 
-        System.out.print("Числа, что Вы ввели: ");
+        System.out.print("\nЧисла, что Вы ввели: ");
         for (long arrayNumber : arrayNumbers) {
             System.out.print(arrayNumber + ", ");
         }
@@ -216,7 +176,7 @@ class FirstEighthTask {
                 counter++;
             }
         }
-        System.out.print("\nКоличество четных чисел: " + counter);
+        System.out.printf("\nКоличество четных чисел: %d", counter);
 
         for (i = 0; i < arrayNumbers.length; i++) {
             int counterEven = 0;
@@ -238,7 +198,7 @@ class FirstEighthTask {
                 }
             }
         }
-        System.out.println("\nКоличество чисел с равным числом четных и нечетных цифр среди четных чисел: " + count1);
+        System.out.printf("\nКоличество чисел с равным числом четных и нечетных цифр среди четных чисел: %d", count1);
     }
 
     //6. Найти число, цифры в котором идут в строгом порядке возрастания. Если таких чисел несколько, найти первое из них.
@@ -252,7 +212,7 @@ class FirstEighthTask {
             arrayNumbers[i] = Long.parseLong(array[i]);
         }
 
-        System.out.print("Число, цифры в котором идут в строгом порядке возрастания: ");
+        System.out.print("\nЧисло, цифры в котором идут в строгом порядке возрастания: ");
         exit:
         {
             for (long i1 : arrayNumbers) {
@@ -286,7 +246,7 @@ class FirstEighthTask {
         }
     }
 
-    //7. Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
+//7. Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
     void differentNumbers() {
         int flag = 0;
         long[] arrayNumbers = new long[array.length];
@@ -339,7 +299,7 @@ class FirstEighthTask {
         }
     }
 
-    //8. Вывести числа от 1 до k в виде матрицы N x N слева направо и сверху вниз.
+//8. Вывести числа от 1 до k в виде матрицы N x N слева направо и сверху вниз.
     void showArray() {
         //-----Первый вариант------------------------------------------------------------------
         System.out.print("Введите размерность матрицы NxN: ");
