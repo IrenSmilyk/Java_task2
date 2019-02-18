@@ -12,7 +12,7 @@ class NinthTask {
     /*--9.Ввести с консоли n-размерность матрицы a [n] [n]. Задать значения элементов матрицы в интервале значений---------
    ---от -n до n с помощью датчика случайных чисел.---------------------------------------------------------------------*/
     boolean sedArray() {
-        boolean k;
+        boolean flag;
         System.out.print("Введите размерность матрицы: ");
         Scanner input = new Scanner(System.in);
         length = input.nextInt();
@@ -20,19 +20,19 @@ class NinthTask {
         Random ran = new Random();
         if (length <= 1) {
             System.out.println("Невозможно создать матрицу такой длины!");
-            k = false;
+            flag = false;
         } else {
             for (int row = 0; row < array.length; row++) {
                 for (int col = 0; col < array.length; col++) {
                     array[row][col] = ran.nextInt(length + length) - length;
                 }
             }
-            k = true;
+            flag = true;
         }
-        return k;
+        return flag;
     }
 
-    void showArray1() {
+    void showArray() {
         for (int[] row : array) {
             for (int col : row) {
                 System.out.print(col + "\t");
@@ -55,7 +55,7 @@ class NinthTask {
             }
         }
         System.out.println("Матрица с упорядоченными строками в порядке возрастания значений: ");
-        showArray1();
+        showArray();
 
         for (int row = 0; row < length; row++) {
             for (int col = 0; col < length; col++) {
@@ -70,25 +70,25 @@ class NinthTask {
         }
 
         System.out.println("Матрица с упорядоченными столбцами в порядке возрастания значений: ");
-        showArray1();
+        showArray();
     }
 
-//---9.2. Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).--------------------
+    //---9.2. Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).--------------------
     void moveElementLeft() {
-        Scanner sc = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу влево: ");
-        int step = sc.nextInt();
+        int step = scan.nextInt();
         if (step < 1) {
             System.out.println("Сдвиг невозможен!");
         } else if (step == length) {
             System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
         } else {
-            int m = step;
+            int inputStep = step;
             while (step > length - 1) {
                 step = step - length;
             }
             //-------------Первый вариант---------------------------------------------------------
-            System.out.println("Матрица сдвинута на " + m + " элементов(-та) влево:");
+            System.out.println("Матрица сдвинута на " + inputStep + " элементов(-та) влево:");
             /*for (int j = 0; j < length; j++) {
                 for (int row = step; row < length; row++)
                     System.out.print(array[j][row] + " ");
@@ -108,24 +108,24 @@ class NinthTask {
                     array[row][length - 1] = temp;
                 }
             }
-            showArray1();
+            showArray();
         }
     }
 
     void moveElementRight() {
-        Scanner sc = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу вправо: ");
-        int step = sc.nextInt();
+        int step = scan.nextInt();
         if (step < 1) {
             System.out.println("Сдвиг невозможен!");
         } else if (step == length) {
             System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
         } else {
-            int m = step;
+            int inputStep = step;
             while (step > length - 1) {
                 step = step - length;
             }
-            System.out.println("Матрица сдвинута на " + m + " элементов(-та) вправо:");
+            System.out.println("Матрица сдвинута на " + inputStep + " элементов(-та) вправо:");
             int j;
             for (int row = 0; row < length; row++) {
                 for (int k = 0; k < step; k++) {
@@ -136,24 +136,24 @@ class NinthTask {
                     array[row][0] = temp;
                 }
             }
-            showArray1();
+            showArray();
         }
     }
 
     void moveElementDown() {
-        Scanner sc = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу вниз: ");
-        int step = sc.nextInt();
+        int step = scan.nextInt();
         if (step < 1) {
             System.out.println("Сдвиг невозможен!");
         } else if (step == length) {
             System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
         } else {
-            int m = step;
+            int inputStep = step;
             while (step > length - 1) {
                 step = step - length;
             }
-            System.out.println("Матрица сдвинута на " + m + " строк(ки) вниз:");
+            System.out.println("Матрица сдвинута на " + inputStep + " строк(ки) вниз:");
             int temp, i, j;
             for (int row = 0; row < step; row++) {
                 for (i = 0; i < length; i++) {
@@ -164,24 +164,24 @@ class NinthTask {
                     array[j][i] = temp;
                 }
             }
-            showArray1();
+            showArray();
         }
     }
 
     void moveElementUp() {
-        Scanner sc = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу вверх: ");
-        int step = sc.nextInt();
+        int step = scan.nextInt();
         if (step < 1) {
             System.out.println("Сдвиг невозможен!");
         } else if (step == length) {
             System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
         } else {
-            int m = step;
+            int inputStep = step;
             while (step > length - 1) {
                 step = step - length;
             }
-            System.out.println("Матрица сдвинутая на " + m + " строк(ки) вверх:");
+            System.out.println("Матрица сдвинутая на " + inputStep + " строк(ки) вверх:");
             int temp, i, j;
             for (int row = 0; row < step; row++) {
                 for (i = 0; i < length; i++) {
@@ -192,7 +192,7 @@ class NinthTask {
                     array[j][i] = temp;
                 }
             }
-            showArray1();
+            showArray();
         }
     }
 
@@ -303,33 +303,33 @@ class NinthTask {
     void rotate2Matrix() {
         System.out.println("Матрица повернутая на 180 градусов: ");
         rotateMatrix();
-        showArray1();
+        showArray();
         System.out.println("Матрица повернутая на 270 градусов: ");
         rotateMatrix();
-        showArray1();
+        showArray();
     }
 
     //---9.6 Построить матрицу, вычитая из элементов каждой строки матрицы ее среднее арифметическое.----------------------
     void minusAverage() {
         int sum = 0;
         int average;
-        int l = 0;
+        int count = 0;
         System.out.print("Среднее арефметическое: ");
         for (int row = 0; row < array.length; row++) {
             for (int col = 0; col < array.length; col++) {
                 sum = sum + array[row][col];
-                l++;
+                count++;
             }
-            average = sum / l;
+            average = sum / count;
             System.out.print(average + ", ");
             sum = 0;
-            l = 0;
+            count = 0;
             for (int col1 = 0; col1 < array.length; col1++) {
                 array[row][col1] = array[row][col1] - average;
             }
         }
         System.out.println("\nМатрица, в кторой из элементов каждой строки вычли ее среднее арифметическое: ");
-        showArray1();
+        showArray();
     }
 
     //---9.7. Уплотнить матрицу, удаляя из нее строки и столбцы, заполненные нулями.----------------------------------------
@@ -340,17 +340,17 @@ class NinthTask {
     //---9.8. Преобразовать строки матрицы таким образом, чтобы элементы, равные нулю, располагались после всех остальных.--
     void moveZero() {
         for (int row = 0; row < array.length; row++) {
-            int n = 0;
+            int indexNewArray = 0;
             int[] c = new int[array.length];
             for (int col = 0; col < array.length; col++) {
                 if (array[row][col] != 0) {
-                    c[n++] = array[row][col];
+                    c[indexNewArray++] = array[row][col];
                 }
             }
             array[row] = Arrays.copyOf(c, c.length);
         }
         System.out.println("Матрица в которой элементы, равные нулю, располагаются после всех остальных: ");
-        showArray1();
+        showArray();
     }
 }
 

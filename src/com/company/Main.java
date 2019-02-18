@@ -14,10 +14,10 @@ public class Main {
         firstTask.differentNumbers();
         firstTask.showArray();*/
         NinthTask ninthTask = new NinthTask();
-        boolean m = ninthTask.sedArray();
-        if (m) {
+        boolean flag = ninthTask.sedArray();
+        if (flag) {
             System.out.println("Матрица со случайными числами: ");
-            ninthTask.showArray1();
+            ninthTask.showArray();
             ninthTask.sortRowColumn();
             ninthTask.moveElementLeft();
             ninthTask.moveElementRight();
@@ -27,7 +27,7 @@ public class Main {
             ninthTask.sumElements();
             System.out.println("Матрица повернутая на 90 градусов: ");
             ninthTask.rotateMatrix();
-            ninthTask.showArray1();
+            ninthTask.showArray();
             ninthTask.rotate2Matrix();
             ninthTask.minusAverage();
             ninthTask.moveZero();
