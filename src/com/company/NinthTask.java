@@ -74,52 +74,7 @@ class NinthTask {
     }
 
 //---9.2. Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).--------------------
-//----Первый вариан--в матрице сдвигаются все элементы влево-------------------------------------------------------
-void moveElementLeft1() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу влево: ");
-        int step = sc.nextInt();
-        if (step < 1) {
-            System.out.println("Сдвиг невозможен!");
-        } else if (step == length*length) {
-            System.out.println("Матрица с таким здвигом имеет тот же вид, что и первоначальная!");
-        } else {
-        int m = step;
-            while (step > length*length - 1) {
-                step = step - length*length;
-            }
-            int[] arrayNew = new int[length * length];
-            for (int row = 0; row < length; row++) {
-                for (int col = 0; col < array[row].length; col++) {
-                    arrayNew[row * array[0].length + col] = array[row][col];
-                }
-            }
-            for (int i = 0; i < step; i++) {
-                leftRotate(arrayNew, length * length);
-            }
-            System.out.println("Матрица сдвинута на " + m + " элементов(-та) влево:");
-            for (int row = 0; row < length; row++) {
-                for (int col = 0; col < length; col++) {
-                    System.out.print(arrayNew[row * length + col] + " ");
-                }
-                System.out.println();
-
-            }
-        }
-    }
-
-    private void leftRotate(int[] matrix, int size) {
-        int i, temp;
-        temp = matrix[0];
-        for (i = 0; i < size - 1; i++) {
-            matrix[i] = matrix[i + 1];
-        }
-        matrix[i] = temp;
-    }
-
-    //--Второй вариан--в матрице сдвигаются влево элементы каждой строки------------------------------------------------
-
-    void moveElementLeft2() {
+    void moveElementLeft() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Введите количество элементов, на которое нужно сдвинуть матрицу влево: ");
         int step = sc.nextInt();
@@ -243,85 +198,90 @@ void moveElementLeft1() {
 
     //---9.3. Найти и вывести наибольшее число возрастающих (убывающих) элементов матрицы, идущих подряд.---------------
     void maxCountElement() {
-        int[] arrayNew = new int[array.length * array.length];
-        int n = 0, countMax = 0, countMin = 0;
+        int n, countMax, countMin;
+        int maxRow = 0, minRow = 0;
         int max = 0, min = 0;
-        int index = 0, index1 = 0;
-        for (int[] row : array) {
-            for (int col : row) {
-                arrayNew[n++] = col;
+        int indexRow = 0, index1Row = 0;
+        int indexMax, indexMin = 0;
+        String s = null, s1 = null;
+        for (int row = 0; row < length; row++) {
+            countMax = 0;
+            countMin = 0;
+            for (n = 0; n < length - 1; n++) {
+                if (array[row][n] < array[row][n + 1]) {
+                    countMax++;
+                    if (countMax >= maxRow) {
+                        maxRow = countMax;
+                        indexRow = n + 1; //запоминаем индекс последнего возрастающего элемента
+                    }
+                } else {
+                    countMax = 0;
+                }
+                if (array[row][n] > array[row][n + 1]) {
+                    countMin++;
+                    if (countMin > minRow) {
+                        minRow = countMin;
+                        index1Row = n + 1; //запоминаем индекс последнего убывающего элемента
+                    }
+                } else {
+                    countMin = 0;
+                }
+            }
+            if (maxRow > max) {
+                max = maxRow;
+                indexMax = indexRow;
+                int[] c = new int[max + 1];
+                int l = 0;
+                for (int col = indexMax - max; col <= indexMax; col++) {
+                    c[l++] = array[row][col];
+                }
+                s = Arrays.toString(c);
+            }
+            if (minRow > min) {
+                min = minRow;
+                indexMin = index1Row;
+                int[] d = new int[min + 1];
+                int l1 = 0;
+                for (int col = indexMin - min; col <= indexMin; col++) {
+                    d[l1++] = array[row][col];
+                }
+                s1 = Arrays.toString(d);
             }
         }
-        for (n = 0; n < arrayNew.length - 1; n++) {
-            if (arrayNew[n] < arrayNew[n + 1]) {
-                countMax++;
-                if (countMax > max) {
-                    max = countMax;
-                    index = n + 1; //запоминаем индекс последнего возрастающего элемента
-                }
-            } else {
-                countMax = 0;
-            }
-            if (arrayNew[n] > arrayNew[n + 1]) {
-                countMin++;
-                if (countMin > min) {
-                    min = countMin;
-                    index1 = n + 1; //запоминаем индекс последнего убывающего элемента
-                }
-            } else {
-                countMin = 0;
-            }
+        System.out.print("Максимальная последовательность возрастающих чисел: ");
+        if (max == 0) {
+            System.out.println("Такой последовательности нет!");
+        } else {
+            System.out.println(s + " " + (max + 1));
         }
-        System.out.print("Максимальная последовательность возрастающих чисел:");
-        int[] maxArray = new int[max + 1];
-        System.arraycopy(arrayNew, (index - max), maxArray, 0, (max + 1));
-        System.out.println(Arrays.toString(maxArray) + " " + (max + 1));
-        System.out.print("Максимальная последовательность убывающих чисел:");
-        int[] minArray = new int[min + 1];
-        System.arraycopy(arrayNew, (index1 - min), minArray, 0, (min + 1));
-        System.out.println(Arrays.toString(minArray) + " " + (min + 1));
+        System.out.print("Максимальная последовательность убывающих чисел: ");
+        if (min == 0) {
+            System.out.println("Такой последовательности нет!");
+        } else {
+            System.out.println(s1 + " " + (min + 1));
+        }
     }
 
     //---9.4. Найти сумму элементов матрицы, расположенных между первым и вторым положительными элементами каждой строки.--
     void sumElements() {
-        int[] arrayNew = new int[array.length * array.length];
-        //-----Первый вариант------------------------------------------------------------------------------------------
-        /*for (int row = 0; row < length; row++) {
-            for (int col = 0; col < array[row].length; col++) {
-                arrayNew[row * array[0].length + col] = array[row][col];
-            }
-        }*/
-        //----Второй вариант-------------------------------------------------------------------------------------------
-        int n = 0;
-        for (int[] row : array) {
-            for (int col : row) {
-                arrayNew[n++] = col;
-            }
-        }
-        System.out.println();
-        int sum = 0;
         for (int row = 0; row < length; row++) {
-            int sum1 = 0;
+            int sum = 0;
             int first = -1, second = -1;
             for (int col = 0; col < length; col++) {
-                if (arrayNew[row * length + col] >= 0) {
+                if (array[row][col] >= 0) {
                     if (first == -1) {
-                        first = row * length + col;
+                        first =col;
                     } else if (second == -1) {
-                        second = row * length + col;
-                    } else {
-                        break;
+                        second = col;
                     }
                 }
             }
             if (first != -1 && second != -1 && second > first) {
                 for (int m = first + 1; m < second; m++) {
-                    sum1 += arrayNew[m];
+                    sum += array[row][m];
                 }
             }
-            sum += sum1;
             System.out.println("Сумма элементов матрицы, расположенных между первым и вторым положительными элементами " + row + " строки: " + sum);
-            sum = 0;
         }
     }
 
