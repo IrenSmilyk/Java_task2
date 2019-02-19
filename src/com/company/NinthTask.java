@@ -9,8 +9,8 @@ class NinthTask {
     private int[][] array;
     private int length;
 
-    /*--9.Ввести с консоли n-размерность матрицы a [n] [n]. Задать значения элементов матрицы в интервале значений---------
-   ---от -n до n с помощью датчика случайных чисел.---------------------------------------------------------------------*/
+    /*--9.Ввести с консоли n-размерность матрицы a [n] [n]. Задать значения элементов матрицы в интервале значений------
+   ---от -n до n с помощью датчика случайных чисел.-------------------------------------------------------------------*/
     boolean sedArray() {
         boolean flag;
         System.out.print("Введите размерность матрицы: ");
@@ -41,7 +41,7 @@ class NinthTask {
         }
     }
 
-    //----9.1. Упорядочить строки (столбцы) матрицы в порядке возрастания значений.----------------------------------------
+    //----9.1. Упорядочить строки (столбцы) матрицы в порядке возрастания значений.-------------------------------------
     void sortRowColumn() {
         for (int row = 0; row < length; row++) {
             for (int col = 0; col < length; col++) {
@@ -202,7 +202,7 @@ class NinthTask {
         int maxRow = 0, minRow = 0;
         int max = 0, min = 0;
         int indexRow = 0, index1Row = 0;
-        int indexMax, indexMin = 0;
+        int indexMax, indexMin;
         String s = null, s1 = null;
         for (int row = 0; row < length; row++) {
             countMax = 0;
@@ -270,7 +270,7 @@ class NinthTask {
             for (int col = 0; col < length; col++) {
                 if (array[row][col] >= 0) {
                     if (first == -1) {
-                        first =col;
+                        first = col;
                     } else if (second == -1) {
                         second = col;
                     }
@@ -281,7 +281,8 @@ class NinthTask {
                     sum += array[row][m];
                 }
             }
-            System.out.println("Сумма элементов матрицы, расположенных между первым и вторым положительными элементами " + row + " строки: " + sum);
+            System.out.println("Сумма элементов матрицы, расположенных между первым и вторым положительными элементами " +
+                    +row + " строки: " + sum);
         }
     }
 
@@ -309,7 +310,7 @@ class NinthTask {
         showArray();
     }
 
-    //---9.6 Построить матрицу, вычитая из элементов каждой строки матрицы ее среднее арифметическое.----------------------
+    //---9.6 Построить матрицу, вычитая из элементов каждой строки матрицы ее среднее арифметическое.-------------------
     void minusAverage() {
         int sum = 0;
         int average;
@@ -334,7 +335,52 @@ class NinthTask {
 
     //---9.7. Уплотнить матрицу, удаляя из нее строки и столбцы, заполненные нулями.----------------------------------------
     void removeRow() {
+        int n = length;
+        int m = length;
+        boolean p = false;
+        for (int i = 0; i < n; i++) {
+            p = true;
+            for (int j = 0; j < m; j++)
+                if (array[i][j] != 0) {
+                    p = false;
+                    break;
+                }
+            if (p) {
+                for (int k = i; k < (n - 1); k++)
+                    for (int j = 0; j < m; j++)
+                        array[k][j] = array[k + 1][j];
+                --i;
+                --n;
+            }
+        }
 
+        for (int j = 0; j < m; j++) {
+            p = true;
+            for (int i = 0; i < n; i++)
+                if (array[i][j] != 0) {
+                    p = false;
+                    break;
+                }
+            if (p) {
+                for (int k = j; k < (m - 1); k++)
+                    for (int i = 0; i < m; i++)
+                        array[i][k] = array[i][k + 1];
+                --j;
+                --m;
+            }
+        }
+        if (!p) {
+            System.out.println("Строк и столбцов заполненных лишь нуля в матрице нет!");
+        } else {
+            System.out.println("матрица после уплотнения:");
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < m; j++) {
+                    System.out.print(array[i][j] + "\t");
+                }
+                System.out.print("\n");
+            }
+
+        }
     }
 
     //---9.8. Преобразовать строки матрицы таким образом, чтобы элементы, равные нулю, располагались после всех остальных.--

@@ -31,7 +31,7 @@ public class Main {
             ninthTask.rotate2Matrix();
             ninthTask.minusAverage();
             ninthTask.moveZero();
-            //ninthTask.removeRow();
+            ninthTask.removeRow();
         }
 
     }
