@@ -3,7 +3,7 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        /*FirstEighthTask firstTask = new FirstEighthTask();
+        FirstEighthTask firstTask = new FirstEighthTask();
         firstTask.setArray();
         firstTask.showShortLongNumber();
         firstTask.sortNumbers();
@@ -12,7 +12,7 @@ public class Main {
         firstTask.colEvenNumbers();
         firstTask.numbersInAscendingOrder();
         firstTask.differentNumbers();
-        firstTask.showArray();*/
+        firstTask.showArray();
         NinthTask ninthTask = new NinthTask();
         boolean flag = ninthTask.sedArray();
         if (flag) {
@@ -23,6 +23,8 @@ public class Main {
             ninthTask.moveElementRight();
             ninthTask.moveElementDown();
             ninthTask.moveElementUp();
+            System.out.println("Первоначальная матрица: ");
+            ninthTask.showArray();
             ninthTask.maxCountElement();
             ninthTask.sumElements();
             System.out.println("Матрица повернутая на 90 градусов: ");
