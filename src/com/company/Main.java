@@ -23,8 +23,6 @@ public class Main {
             ninthTask.moveElementRight();
             ninthTask.moveElementDown();
             ninthTask.moveElementUp();
-            System.out.println("Первоначальная матрица: ");
-            ninthTask.showArray();
             ninthTask.maxCountElement();
             ninthTask.sumElements();
             System.out.println("Матрица повернутая на 90 градусов: ");

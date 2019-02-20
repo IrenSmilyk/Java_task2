@@ -102,7 +102,7 @@ class NinthTask {
                 step = step - length;
             }
             //-------------Первый вариант---------------------------------------------------------
-            System.out.println("Первоначальная матрица сдвинута на " + inputStep + " элементов(-та) влево:");
+            System.out.println("Матрица (до сортировки) сдвинута на " + inputStep + " элементов(-та) влево:");
             /*for (int j = 0; j < length; j++) {
                 for (int row = step; row < length; row++)
                     System.out.print(array[j][row] + " ");
@@ -139,7 +139,7 @@ class NinthTask {
             while (step > length - 1) {
                 step = step - length;
             }
-            System.out.println("Первоначальная матрица сдвинута на " + inputStep + " элементов(-та) вправо:");
+            System.out.println("Матрица (до сортировки) сдвинута на " + inputStep + " элементов(-та) вправо:");
             int j;
             for (int row = 0; row < length; row++) {
                 for (int k = 0; k < step; k++) {
@@ -167,7 +167,7 @@ class NinthTask {
             while (step > length - 1) {
                 step = step - length;
             }
-            System.out.println("Первоначальная матрица сдвинута на " + inputStep + " строк(ки) вниз:");
+            System.out.println("Матрица (до сортировки) сдвинута на " + inputStep + " строк(ки) вниз:");
             int temp, i, j;
             for (int row = 0; row < step; row++) {
                 for (i = 0; i < length; i++) {
@@ -195,7 +195,7 @@ class NinthTask {
             while (step > length - 1) {
                 step = step - length;
             }
-            System.out.println("Первоначальная матрица сдвинутая на " + inputStep + " строк(ки) вверх:");
+            System.out.println("Матрица (до сортировки) сдвинутая на " + inputStep + " строк(ки) вверх:");
             int temp, i, j;
             for (int row = 0; row < step; row++) {
                 for (i = 0; i < length; i++) {
@@ -349,51 +349,113 @@ class NinthTask {
 
     //---9.7. Уплотнить матрицу, удаляя из нее строки и столбцы, заполненные нулями.----------------------------------------
     void removeRow() {
-        int n = length;
-        int m = length;
-        boolean p = false;
-        for (int i = 0; i < n; i++) {
-            p = true;
-            for (int j = 0; j < m; j++)
-                if (array[i][j] != 0) {
-                    p = false;
-                    break;
+        int n = 5;
+        int m = 5;
+        int countRow;
+        int countCol;
+        int count = 0;
+        int count1 = 0;
+        int nrez, mrez, row, col, summ, flag;
+        int[] flag_str = new int[n];
+        int[] flag_stl = new int[m];
+        nrez = n;
+        mrez = m;
+        int[][] array1 = {{1, 0, 2, 3, 0},
+                         {0, 0, 0, 0, 0},
+                         {4, 0, 5, 6, 0},
+                         {7, 0, 8, 9, 0},
+                         {0, 0, 0, 0, 0}};
+
+        System.out.println("Матрица, в которой есть строки и столбцы, заполненные нулями: ");
+        for (int[] i : array1) {
+            for ( int j : i) {
+                System.out.print(j + "\t");
+            }
+            System.out.print("\n");
+        }
+        for ( row = 0; row < n; row++) {   //считаем количество строк, заполненных нулями
+            countRow = 0;
+            for ( col = 0; col < m; col++) {
+                if (array1[row][col] == 0) {
+                    countRow++;
                 }
-            if (p) {
-                for (int k = i; k < (n - 1); k++)
-                    for (int j = 0; j < m; j++)
-                        array[k][j] = array[k + 1][j];
-                --i;
-                --n;
+            }
+            if (countRow == n) {
+                count++;
             }
         }
 
-        for (int j = 0; j < m; j++) {
-            p = true;
-            for (int i = 0; i < n; i++)
-                if (array[i][j] != 0) {
-                    p = false;
-                    break;
+        for ( row = 0; row < n; row++) {   //считаем количество солбцов, заполненных нулями
+            countCol = 0;
+            for ( col = 0; col < m; col++) {
+                if (array1[col][row] == 0) {
+                    countCol++;
                 }
-            if (p) {
-                for (int k = j; k < (m - 1); k++)
-                    for (int i = 0; i < m; i++)
-                        array[i][k] = array[i][k + 1];
-                --j;
-                --m;
+            }
+            if (countCol == m) {
+                count1++;
             }
         }
-        if (!p) {
-            System.out.println("Строк и столбцов заполненных лишь нулями в матрице нет!");
+
+        if (count == 0 & count1 == 0) {
+            System.out.println("В матрице отсутвуют строки и столбцы, заполненные нулями!");
+
+        } else if (count == n & count1 == m) {
+            System.out.println("Уплотнить матрицу невозможно, так как она состоит лишь из нулей!");
+
         } else {
-            System.out.println("матрица после уплотнения:");
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < m; j++) {
-                    System.out.print(array[i][j] + "\t");
+            for (row = 0; row < n; row++) { //вычисляем на сколько строк уплотнится матрица и ищем строки, заполненные нулями
+                summ = 0;
+                for (col = 0; col < m; col++) {
+                    summ += array1[row][col];
+
+                }
+                if (summ == 0) {
+                    nrez--;
+                    flag_str[row] = 1;
+                } else flag_str[row] = 0;
+            }
+            int[][] temp = new int[nrez][m]; // создаем временную матрицу
+
+            // удаляем из исходной матрицы строки, заполненные нулями
+            flag = 0;
+            for (row = 0; row < n; row++) {
+                if (flag_str[row] == 0) { //если элемент массива равен нулю,
+                    for (col = 0; col < m; col++) {
+                        temp[row - flag][col] = array1[row][col];//то из исходной матрицы переносим все элементы строки в новую матрицу
+                    }
+                } else flag++;
+            }
+
+            for (col = 0; col < m; col++) { //вычисляем на сколько столбцов уплотнится матрица и ищем столбцы, заполненные нулями
+                summ = 0;
+                for (row = 0; row < nrez; row++) {
+                    summ += array1[row][col];
+                }
+                if (summ == 0) {
+                    mrez--;
+                    flag_stl[col] = 1;
+                } else flag_stl[col] = 0;
+            }
+            int[][] rez = new int[nrez][mrez]; // создаем конечную матрицу
+
+            // удаляем из временной матрицы столбцы, заполненные нулями
+            flag = 0;
+            for (col = 0; col < m; col++) {
+                if (flag_stl[col] == 0) { //если элемент массива равен нулю,
+                    for (row = 0; row < nrez; row++) {
+                        rez[row][col-flag] = temp[row][col];//то из исходной матрицы переносим все элементы столбца в новую матрицу
+                    }
+                } else flag++;
+            }
+
+            System.out.println("Матрица после уплотнения");
+            for (row = 0; row < nrez; row++) {
+                for (col = 0; col < mrez; col++) {
+                    System.out.print(rez[row][col] + "\t");
                 }
                 System.out.print("\n");
             }
-
         }
     }
 
